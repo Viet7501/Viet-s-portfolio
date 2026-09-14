@@ -57,6 +57,15 @@ def validate(root: Path, base_path: str = ''):
     for path in root.rglob('*.html'):
         parsed = Page()
         parsed.feed(path.read_text(encoding='utf-8'))
+
+        # /admin/ is a standalone CMS application rather than an academic
+        # content page, so it does not use the site's h1/main/navigation shell.
+        relative = path.relative_to(root)
+        if relative.parts and relative.parts[0] == 'admin':
+            if not parsed.title:
+                raise ValueError(f'{path}: admin page must have a title.')
+            continue
+
         pages[path] = parsed
         if parsed.h1 != 1 or parsed.main != 1 or not parsed.title:
             raise ValueError(f'{path}: expected one main heading, a main landmark, and a title.')
