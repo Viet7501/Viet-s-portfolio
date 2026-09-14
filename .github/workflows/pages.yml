@@ -39,6 +39,8 @@ jobs:
         env:
           SITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}
         run: python generate.py
+      - name: Add browser content manager
+        run: cp -r admin dist/admin
       - name: Check routes and local links
         env:
           SITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}
