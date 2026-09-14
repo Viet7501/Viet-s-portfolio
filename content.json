@@ -1,0 +1,116 @@
+{
+  "name": "Quoc-Viet Le",
+  "role": "Ph.D. student in Mechanical Engineering",
+  "short_role": "Ph.D. student · Mechanical Engineering",
+  "home_role": "Ph.D. student & graduate researcher",
+  "field": "Mechanical Engineering",
+  "researcher_since": "February 2024",
+  "tagline": "I study how flow shapes fiber alignment in additive manufacturing.",
+  "biography": [
+    "I am a Ph.D. student in Mechanical Engineering at Chosun University, working in the Heat Transfer Laboratory with Professor Dong-Wook Oh. My research combines computational fluid dynamics and flow visualization to understand fiber orientation in printed polymer composites.",
+    "I received my B.S. in Aviation Engineering from Hanoi University of Science and Technology in 2023, where I worked on aerospace propulsion, heat transfer, and combustion."
+  ],
+  "research_interests": ["Computational fluid dynamics", "Fiber orientation", "Additive manufacturing", "Flow visualization"],
+  "university": "Chosun University",
+  "department": "Department of Mechanical Engineering",
+  "laboratory": "Heat Transfer Laboratory",
+  "advisor": "Professor Dong-Wook Oh",
+  "location": "Gwangju, South Korea",
+  "email": "",
+  "portrait": "",
+  "portrait_alt": "Portrait of Quoc-Viet Le",
+  "linkedin": "https://www.linkedin.com/in/quoc-viet-le/",
+  "scholar": "https://scholar.google.com/citations?user=S5EdqN8AAAAJ&hl=en",
+  "orcid": "https://orcid.org/0009-0007-9250-0203",
+  "orcid_id": "0009-0007-9250-0203",
+  "publications": [
+    {
+      "id": "inlet-orientation",
+      "title": "Transition from M-shaped to Gaussian fiber alignment governed by inlet orientation in fused filament fabrication",
+      "authors": ["Quoc-Viet Le", "Dong-Wook Oh"],
+      "journal": "Physics of Fluids",
+      "volume": "38",
+      "location": "083123",
+      "year": 2026,
+      "date": "20 August 2026",
+      "doi": "10.1063/5.0342259",
+      "summary": "Experiments and simulations examine how inlet fiber orientation changes the alignment profile after extrusion. The study identifies conditions that shift the profile from M-shaped to Gaussian-like.",
+      "tags": ["Fiber orientation", "Flow visualization", "Fused filament fabrication"]
+    },
+    {
+      "id": "orifice-gap",
+      "title": "Numerical analysis of flow and fiber orientation inside a varying orifice gap nozzle for fused filament fabrication",
+      "authors": ["Quoc-Viet Le", "Dong-Wook Oh"],
+      "journal": "Journal of Mechanical Science and Technology",
+      "volume": "40",
+      "location": "4739–4751",
+      "year": 2026,
+      "date": "5 June 2026",
+      "doi": "10.1007/s12206-026-0548-7",
+      "summary": "A numerical study of how an adjustable nozzle gap changes the flow and the alignment of fibers in an extruded filament, connecting nozzle geometry with shear and extension.",
+      "tags": ["Nozzle design", "CFD", "Polymer composites"]
+    }
+  ],
+  "education": [
+    {
+      "period": "2024 — 2028",
+      "status": "In progress",
+      "degree": "Ph.D. in Mechanical Engineering",
+      "institution": "Chosun University",
+      "location": "Gwangju, South Korea",
+      "dates": "March 2024 — expected May 2028",
+      "details": ["Heat Transfer Laboratory", "Advisor: Professor Dong-Wook Oh"]
+    },
+    {
+      "period": "2019 — 2023",
+      "status": "Completed",
+      "degree": "B.S. in Aviation Engineering",
+      "institution": "Hanoi University of Science and Technology",
+      "location": "Hanoi, Vietnam",
+      "dates": "September 2019 — October 2023",
+      "details": ["Undergraduate research in aerospace propulsion, heat transfer, and combustion."]
+    }
+  ],
+  "research_experience": [
+    {
+      "period": "Feb 2024 — Present",
+      "title": "Graduate Student Researcher",
+      "institution": "Chosun University",
+      "team": "Heat Transfer Laboratory",
+      "location": "Gwangju, South Korea",
+      "description": "Research on computational fluid dynamics, flow visualization, and fiber alignment in additive manufacturing under the supervision of Professor Dong-Wook Oh."
+    },
+    {
+      "period": "Nov 2022 — Oct 2023",
+      "title": "Undergraduate Research Assistant",
+      "institution": "Hanoi University of Science and Technology",
+      "team": "Heat Transfer and Combustion Laboratory",
+      "location": "Hanoi, Vietnam",
+      "description": "Studied cavity-induced flame behavior under oblique shock-wave interaction in scramjet engines, examining injection strategies and combustor geometry to improve combustion efficiency."
+    },
+    {
+      "period": "Oct 2021 — Oct 2022",
+      "title": "Undergraduate Research Assistant",
+      "institution": "Hanoi University of Science and Technology",
+      "team": "Aerospace Propulsion Laboratory",
+      "location": "Hanoi, Vietnam",
+      "description": "Worked on aircraft-engine combustion research and the design of a dynamometer-based thrust measurement system for a JetCat P180-NX engine."
+    }
+  ],
+  "industry_experience": [
+    {
+      "period": "Oct 2023 — Jan 2024",
+      "title": "Procurement Engineer",
+      "institution": "Viet Hoang",
+      "location": "Hanoi, Vietnam",
+      "description": "Sourced aviation spare parts and specialized equipment, coordinated suppliers, and supported contract negotiations and delivery."
+    },
+    {
+      "period": "Aug 2022 — Oct 2022",
+      "title": "Aircraft Maintenance Technician",
+      "institution": "Aerospace Engineering Services JSC (AESC)",
+      "location": "Hanoi, Vietnam",
+      "description": "Inspected, maintained, and repaired aircraft wheels using technical manuals and manufacturer specifications, with responsibility for maintenance records and component replacement."
+    }
+  ]
+}
