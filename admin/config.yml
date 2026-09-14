@@ -1,0 +1,34 @@
+backend:
+  name: github
+  repo: Viet7501/Viet-s-portfolio
+  branch: main
+
+media_folder: assets/images
+public_folder: /assets/images
+
+site_url: https://viet7501.github.io/Viet-s-portfolio/
+display_url: https://viet7501.github.io/Viet-s-portfolio/
+
+collections:
+  - name: posts
+    label: Blog Posts
+    label_singular: Blog Post
+    folder: posts
+    create: true
+    extension: md
+    format: frontmatter
+    slug: '{{slug}}'
+    summary: '{{title}} — {{date}}'
+    sortable_fields: [date, title]
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: URL Slug, name: slug, widget: string, hint: 'Use lowercase words separated by hyphens.' }
+      - { label: Date, name: date, widget: datetime, time_format: false, format: 'YYYY-MM-DD' }
+      - { label: Summary, name: summary, widget: text }
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        default: [Research notes]
+      - { label: Draft, name: draft, widget: boolean, default: true }
+      - { label: Article, name: body, widget: markdown }
