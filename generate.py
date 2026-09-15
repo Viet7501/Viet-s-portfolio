@@ -34,6 +34,17 @@ def text_link(url, label):
     return f'<a class="text-link" href="{E(url)}">{E(label)}{ARROW}</a>'
 
 
+def optional_link(label, url):
+    """Render plain text unless an optional URL is supplied."""
+    if not url:
+        return E(label)
+    return (
+        f'<a href="{E(url)}" target="_blank" rel="noopener noreferrer" '
+        'style="color:inherit;text-decoration:underline;text-underline-offset:3px;">'
+        f'{E(label)}<span class="sr-only"> (opens in a new tab)</span></a>'
+    )
+
+
 def nav(route):
     return '<ul class="nav-list">' + ''.join(
         f'<li><a href="{path}"' + (' aria-current="page"' if route == path or path == '/blog/' and route.startswith('/blog/') else '') +
@@ -50,9 +61,12 @@ def page(route, title, description, body, post=None):
                        if P['portrait'] else '<span class="monogram" aria-hidden="true">QV</span>')
     same_as = [P.get('linkedin'), P.get('scholar'), P.get('researchgate'), P.get('orcid')]
     same_as.extend(item.get('url') for item in P.get('additional_contacts', []) if isinstance(item, dict))
+    affiliation = {'@type': 'CollegeOrUniversity', 'name': P['university']}
+    if P.get('university_url'):
+        affiliation['url'] = P['university_url']
     schema = {
         '@context': 'https://schema.org', '@type': 'Person', 'name': P['name'],
-        'jobTitle': P['role'], 'affiliation': {'@type': 'CollegeOrUniversity', 'name': P['university']},
+        'jobTitle': P['role'], 'affiliation': affiliation,
         'sameAs': [url for url in same_as if url],
         'knowsAbout': P['research_interests']
     }
@@ -109,9 +123,13 @@ def page(route, title, description, body, post=None):
 def home():
     bio = ''.join(f'<p>{E(paragraph)}</p>' for paragraph in P['biography'])
     interests = ''.join(f'<li>{E(item)}</li>' for item in P['research_interests'])
+    laboratory = optional_link(P['laboratory'], P.get('laboratory_url'))
+    university = optional_link(P['university'], P.get('university_url'))
+    department = optional_link(P['field'], P.get('department_url'))
+    advisor = optional_link(P['advisor'], P.get('advisor_url'))
     return f'''<header class="page-header home-header"><p class="eyebrow">{E(P['field'].upper())} / {E(P['university'].upper())}</p><h1>{E(P['name'])}</h1><p class="home-role">{E(P['home_role'])}<br>{E(P['location'])}</p></header>
 <div class="home-grid"><div class="biography"><p class="opening">{E(P['tagline'])}</p>{bio}{text_link('/research/', 'Explore my research')}</div>
-<aside class="appointment" aria-label="Current affiliation"><p class="small-label">Current affiliation</p><div><h2>{E(P['laboratory'])}</h2><p class="university">{E(P['university'])}</p></div><dl><dt>Department</dt><dd>{E(P['field'])}</dd><dt>Advisor</dt><dd>{E(P['advisor'])}</dd><dt>Graduate researcher since</dt><dd>{E(P['researcher_since'])}</dd></dl></aside></div>
+<aside class="appointment" aria-label="Current affiliation"><p class="small-label">Current affiliation</p><div><h2>{laboratory}</h2><p class="university">{university}</p></div><dl><dt>Department</dt><dd>{department}</dd><dt>Advisor</dt><dd>{advisor}</dd><dt>Graduate researcher since</dt><dd>{E(P['researcher_since'])}</dd></dl></aside></div>
 <div class="interests"><p class="section-label">Research interests</p><ul class="interest-list">{interests}</ul></div>'''
 
 
@@ -183,7 +201,11 @@ def contact():
         target = ' target="_blank" rel="noopener noreferrer"' if not url.startswith('mailto:') else ''
         accessible = '<span class="sr-only"> (opens in a new tab)</span>' if target else ''
         rows.append(f'<li><a href="{E(url)}"{target}><span class="profile-icon {cls}" aria-hidden="true">{icon}</span><span><span class="contact-title">{E(title)}</span><span class="contact-subtitle">{E(subtitle)}</span>{accessible}</span>{EXTERNAL}</a></li>')
-    return header('07', 'Contact', P.get('contact_intro', 'Professional profiles and academic affiliation.')) + f'''<div class="contact-layout"><ul class="contact-links">{"".join(rows)}</ul><aside class="contact-affiliation"><p class="section-label">Academic affiliation</p><h2>{E(P['university'])}</h2><p class="lab-name">{E(P['laboratory'])}<br>{E(P['department'])}</p><p>{E(P['location'])}</p><p>Advisor<br>{E(P['advisor'])}</p></aside></div>'''
+    university = optional_link(P['university'], P.get('university_url'))
+    laboratory = optional_link(P['laboratory'], P.get('laboratory_url'))
+    department = optional_link(P['department'], P.get('department_url'))
+    advisor = optional_link(P['advisor'], P.get('advisor_url'))
+    return header('07', 'Contact', P.get('contact_intro', 'Professional profiles and academic affiliation.')) + f'''<div class="contact-layout"><ul class="contact-links">{"".join(rows)}</ul><aside class="contact-affiliation"><p class="section-label">Academic affiliation</p><h2>{university}</h2><p class="lab-name">{laboratory}<br>{department}</p><p>{E(P['location'])}</p><p>Advisor<br>{advisor}</p></aside></div>'''
 
 
 def main():
