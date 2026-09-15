@@ -24,6 +24,7 @@ EXTERNAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wi
 MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg>'
 CAP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m2 9 10-5 10 5-10 5L2 9Zm4 3v5c4 3 8 3 12 0v-5M22 9v7"/></svg>'
 FAVICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="32" fill="#172f43"/><text x="32" y="43" text-anchor="middle" fill="white" font-family="Georgia,serif" font-size="34" letter-spacing="-3">QV</text></svg>'
+INLINE_LINK_RE = re.compile(r'\[([^\]\n]+)\]\((https?://[^\s)]+)\)')
 
 
 def external(url, label, cls='', icon=True):
@@ -43,6 +44,23 @@ def optional_link(label, url):
         'style="color:inherit;text-decoration:underline;text-underline-offset:3px;">'
         f'{E(label)}<span class="sr-only"> (opens in a new tab)</span></a>'
     )
+
+
+def inline_links(text):
+    """Render safe [label](https://url) links while escaping all other text."""
+    text = str(text)
+    pieces = []
+    last = 0
+    for match in INLINE_LINK_RE.finditer(text):
+        pieces.append(E(text[last:match.start()]))
+        label, url = match.groups()
+        pieces.append(
+            f'<a href="{E(url)}" target="_blank" rel="noopener noreferrer">'
+            f'{E(label)}<span class="sr-only"> (opens in a new tab)</span></a>'
+        )
+        last = match.end()
+    pieces.append(E(text[last:]))
+    return ''.join(pieces)
 
 
 def nav(route):
@@ -121,14 +139,14 @@ def page(route, title, description, body, post=None):
 
 
 def home():
-    bio = ''.join(f'<p>{E(paragraph)}</p>' for paragraph in P['biography'])
+    bio = ''.join(f'<p>{inline_links(paragraph)}</p>' for paragraph in P['biography'])
     interests = ''.join(f'<li>{E(item)}</li>' for item in P['research_interests'])
     laboratory = optional_link(P['laboratory'], P.get('laboratory_url'))
     university = optional_link(P['university'], P.get('university_url'))
     department = optional_link(P['field'], P.get('department_url'))
     advisor = optional_link(P['advisor'], P.get('advisor_url'))
     return f'''<header class="page-header home-header"><p class="eyebrow">{E(P['field'].upper())} / {E(P['university'].upper())}</p><h1>{E(P['name'])}</h1><p class="home-role">{E(P['home_role'])}<br>{E(P['location'])}</p></header>
-<div class="home-grid"><div class="biography"><p class="opening">{E(P['tagline'])}</p>{bio}{text_link('/research/', 'Explore my research')}</div>
+<div class="home-grid"><div class="biography"><p class="opening">{inline_links(P['tagline'])}</p>{bio}{text_link('/research/', 'Explore my research')}</div>
 <aside class="appointment" aria-label="Current affiliation"><p class="small-label">Current affiliation</p><div><h2>{laboratory}</h2><p class="university">{university}</p></div><dl><dt>Department</dt><dd>{department}</dd><dt>Advisor</dt><dd>{advisor}</dd><dt>Graduate researcher since</dt><dd>{E(P['researcher_since'])}</dd></dl></aside></div>
 <div class="interests"><p class="section-label">Research interests</p><ul class="interest-list">{interests}</ul></div>'''
 
