@@ -81,13 +81,14 @@ def load_posts(directory: Path) -> list[Post]:
 
 def index_content(posts: list[Post], heading, arrow: str) -> str:
     intro = heading('06', 'Blog', 'Research notes, methods, and ideas from my work in engineering.')
+    editor_button = '''<a class="blog-editor-button" href="/admin/" aria-label="Create a new blog post"><span aria-hidden="true">+</span> New post</a>'''
     if not posts:
-        return intro + '''<section class="blog-empty" aria-label="No published articles"><p class="eyebrow">RESEARCH NOTEBOOK</p><h2>Notes from the research desk.</h2><p>Articles and research notes will appear here.</p></section>'''
+        return intro + '''<section class="blog-empty" aria-label="No published articles"><p class="eyebrow">RESEARCH NOTEBOOK</p><h2>Notes from the research desk.</h2><p>Articles and research notes will appear here.</p></section>''' + editor_button
     rows = []
     for post in posts:
         tags = ''.join(f'<li>{escape(tag)}</li>' for tag in post.tags)
         rows.append(f'''<article class="blog-entry"><div class="blog-entry-meta"><time datetime="{post.date.isoformat()}">{escape(post.display_date)}</time><span>{post.minutes} min read</span></div><div><h2><a href="{post.route}">{escape(post.title)}</a></h2><p>{escape(post.summary)}</p><ul class="tags">{tags}</ul><a class="text-link" href="{post.route}">Read article {arrow}</a></div></article>''')
-    return intro + '<section class="blog-list" aria-label="Published articles">' + ''.join(rows) + '</section>'
+    return intro + '<section class="blog-list" aria-label="Published articles">' + ''.join(rows) + '</section>' + editor_button
 
 
 def article_content(post: Post, author: str, arrow: str) -> str:
