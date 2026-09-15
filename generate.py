@@ -48,10 +48,12 @@ def header(index, title, description):
 def page(route, title, description, body, post=None):
     identity_visual = (f'<img class="portrait" src="{E(P["portrait"])}" alt="{E(P["portrait_alt"])}" width="96" height="112">'
                        if P['portrait'] else '<span class="monogram" aria-hidden="true">QV</span>')
+    same_as = [P.get('linkedin'), P.get('scholar'), P.get('researchgate'), P.get('orcid')]
+    same_as.extend(item.get('url') for item in P.get('additional_contacts', []) if isinstance(item, dict))
     schema = {
         '@context': 'https://schema.org', '@type': 'Person', 'name': P['name'],
         'jobTitle': P['role'], 'affiliation': {'@type': 'CollegeOrUniversity', 'name': P['university']},
-        'sameAs': [P['linkedin'], P['scholar'], P['orcid']],
+        'sameAs': [url for url in same_as if url],
         'knowsAbout': P['research_interests']
     }
     if P['email']:
@@ -91,7 +93,7 @@ def page(route, title, description, body, post=None):
 <header class="mobile-header"><a class="mobile-brand" href="/">{identity_visual}<span>{E(P['name'])}</span></a><details class="mobile-menu"><summary>Menu {MENU}</summary><nav aria-label="Mobile navigation">{nav(route)}</nav></details></header>
 <div class="page">
   <div class="page-inner">
-    <div class="topbar"><span class="topbar-label"><span class="academic-site">Academic profile</span><span class="separator academic-site" aria-hidden="true">/</span><span>{'Blog' if post else E(title)}</span></span>{external(P['scholar'], 'Google Scholar')}</div>
+    <div class="topbar"><span class="topbar-label"><span class="academic-site">Academic profile</span><span class="separator academic-site" aria-hidden="true">/</span><span>{'Blog' if post else E(title)}</span></span><span style="display:flex;gap:18px;align-items:center;">{external(P['scholar'], 'Google Scholar')}<a href="/admin/" title="Edit website content">Edit site</a></span></div>
     <main id="main">{body}</main>
   </div>
   <footer class="site-footer"><div class="page-inner"><div class="footer-inner"><span>© {date.today().year} {E(P['name'])}</span>{external(P['orcid'], 'ORCID ' + E(P['orcid_id']), icon=False)}</div></div></footer>
@@ -114,12 +116,23 @@ def home():
 
 
 def research():
-    return header('02', 'Research', 'Flow, fiber orientation, and the manufacturing of polymer composites.') + f'''
-<p class="research-intro">My work examines how nozzle geometry and incoming fiber alignment influence the structure of an extruded composite.</p>
-<div class="section-heading"><h2>Research directions</h2><span class="meta">Additive manufacturing</span></div>
-<article class="research-row"><span class="research-index" aria-hidden="true">01</span><div><h3>Controlling fiber alignment through nozzle design</h3><p>I investigate adjustable orifice gaps in fused filament fabrication. Numerical flow analysis connects changes in nozzle geometry with shear, extension, and fiber orientation in the extruded filament.</p>{text_link('/publications/#orifice-gap', 'Related publication')}<ul class="tags"><li>Nozzle geometry</li><li>CFD simulation</li><li>Extrusion flow</li></ul></div></article>
-<article class="research-row"><span class="research-index" aria-hidden="true">02</span><div><h3>Understanding the role of inlet orientation</h3><p>I use flow visualization and tensor-based orientation modeling to examine how fibers entering a nozzle affect the alignment downstream. This work explores the transition between M-shaped and Gaussian-like orientation profiles.</p>{text_link('/publications/#inlet-orientation', 'Related publication')}<ul class="tags"><li>Fiber orientation</li><li>Flow visualization</li><li>Polymer composites</li></ul></div></article>
-<div class="method-note"><p class="section-label">Methods</p><p>Computational fluid dynamics · Advani–Tucker orientation tensor modeling · Experimental flow visualization</p></div>'''
+    r = P['research_page']
+    rows = []
+    for index, item in enumerate(r['directions'], 1):
+        tags = ''.join(f'<li>{E(tag)}</li>' for tag in item.get('tags', []))
+        publication_id = item.get('publication_id', '').strip()
+        related = ''
+        if publication_id:
+            related = text_link('/publications/#' + publication_id, item.get('link_label') or 'Related publication')
+        rows.append(
+            f'''<article class="research-row"><span class="research-index" aria-hidden="true">{index:02}</span><div><h3>{E(item['title'])}</h3><p>{E(item['description'])}</p>{related}<ul class="tags">{tags}</ul></div></article>'''
+        )
+    methods = ' · '.join(E(method) for method in r.get('methods', []))
+    return header('02', 'Research', r['lead']) + f'''
+<p class="research-intro">{E(r['intro'])}</p>
+<div class="section-heading"><h2>{E(r['section_title'])}</h2><span class="meta">{E(r['section_meta'])}</span></div>
+{"".join(rows)}
+<div class="method-note"><p class="section-label">Methods</p><p>{methods}</p></div>'''
 
 
 def publications():
@@ -128,7 +141,7 @@ def publications():
         authors = ', '.join(f'<strong>{E(a)}</strong>' if a == P['name'] else E(a) for a in p['authors'])
         articles.setdefault(p['year'], []).append(f'''<article class="publication" id="{E(p['id'])}"><div class="pub-meta"><span class="pub-kind">Journal article</span><span>{E(p['date'])}</span></div><h2><a href="https://doi.org/{E(p['doi'])}" target="_blank" rel="noopener noreferrer">{E(p['title'])}<span class="sr-only"> (opens in a new tab)</span></a></h2><p class="authors">{authors}</p><p class="journal"><em>{E(p['journal'])}</em> <strong>{E(p['volume'])}</strong>, {E(p['location'])} ({p['year']})</p><p class="pub-summary">{E(p['summary'])}</p><div class="pub-links">{external('https://doi.org/' + p['doi'], 'Read paper', 'text-link')}<span class="doi">DOI: {E(p['doi'])}</span></div></article>''')
     groups = ''.join(f'<section class="pub-year" aria-label="Publications in {E(year)}"><h2 class="year-label">{E(year)}</h2><div>{"".join(items)}</div></section>' for year, items in articles.items())
-    return header('03', 'Publications', 'Journal articles on flow and fiber alignment in additive manufacturing.') + f'''<div class="publication-toolbar"><p>Journal articles</p>{external(P['scholar'], 'View Google Scholar', 'text-link')}</div>{groups}'''
+    return header('03', 'Publications', P.get('publications_intro', 'Journal articles on flow and fiber alignment in additive manufacturing.')) + f'''<div class="publication-toolbar"><p>Journal articles</p>{external(P['scholar'], 'View Google Scholar', 'text-link')}</div>{groups}'''
 
 
 def education():
@@ -137,7 +150,7 @@ def education():
         details = ''.join(f'<li>{E(line)}</li>' for line in d['details'])
         status_class = ' completed' if d['status'] == 'Completed' else ''
         items.append(f'''<article class="education-item"><div class="period">{E(d['period'])}<br><span class="status{status_class}">{E(d['status'])}</span></div><div><h2>{E(d['degree'])}</h2><p class="institution">{E(d['institution'])}</p><p class="location">{E(d['location'])}</p><ul class="degree-details">{details}</ul><p class="degree-dates">{E(d['dates'])}</p></div></article>''')
-    return header('04', 'Education', 'Academic training in mechanical and aviation engineering.') + '<section aria-label="University education">' + ''.join(items) + '</section>'
+    return header('04', 'Education', P.get('education_intro', 'Academic training in mechanical and aviation engineering.')) + '<section aria-label="University education">' + ''.join(items) + '</section>'
 
 
 def experience():
@@ -148,7 +161,7 @@ def experience():
             team = f'<p class="team">{E(x["team"])}</p>' if x.get('team') else ''
             items.append(f'''<article class="experience-item"><div class="period">{E(x['period'])}</div><div><h3>{E(x['title'])}</h3><p class="institution">{E(x['institution'])}</p>{team}<p class="location">{E(x['location'])}</p><p class="description">{E(x['description'])}</p></div></article>''')
         sections.append(f'<section class="experience-section"><div class="section-heading"><h2>{label}</h2></div>{"".join(items)}</section>')
-    return header('05', 'Experience', 'Research in fluid mechanics and manufacturing, with a background in aerospace engineering.') + ''.join(sections)
+    return header('05', 'Experience', P.get('experience_intro', 'Research in fluid mechanics and manufacturing, with a background in aerospace engineering.')) + ''.join(sections)
 
 
 def contact():
@@ -158,6 +171,11 @@ def contact():
         (P['orcid'], 'ORCID', P['orcid_id'], 'iD', 'orcid-icon'),
         (P['researchgate'], 'ResearchGate', 'Research profile', 'RG', '')
     ]
+    for item in P.get('additional_contacts', []):
+        if not isinstance(item, dict) or not item.get('label') or not item.get('url'):
+            continue
+        icon = item.get('icon') or item['label'][:2].upper()
+        links.append((item['url'], item['label'], item.get('subtitle', ''), icon, ''))
     if P['email']:
         links.insert(0, ('mailto:' + P['email'], 'Email', P['email'], '@', ''))
     rows = []
@@ -165,19 +183,19 @@ def contact():
         target = ' target="_blank" rel="noopener noreferrer"' if not url.startswith('mailto:') else ''
         accessible = '<span class="sr-only"> (opens in a new tab)</span>' if target else ''
         rows.append(f'<li><a href="{E(url)}"{target}><span class="profile-icon {cls}" aria-hidden="true">{icon}</span><span><span class="contact-title">{E(title)}</span><span class="contact-subtitle">{E(subtitle)}</span>{accessible}</span>{EXTERNAL}</a></li>')
-    return header('07', 'Contact', 'Professional profiles and academic affiliation.') + f'''<div class="contact-layout"><ul class="contact-links">{"".join(rows)}</ul><aside class="contact-affiliation"><p class="section-label">Academic affiliation</p><h2>{E(P['university'])}</h2><p class="lab-name">{E(P['laboratory'])}<br>{E(P['department'])}</p><p>{E(P['location'])}</p><p>Advisor<br>{E(P['advisor'])}</p></aside></div>'''
+    return header('07', 'Contact', P.get('contact_intro', 'Professional profiles and academic affiliation.')) + f'''<div class="contact-layout"><ul class="contact-links">{"".join(rows)}</ul><aside class="contact-affiliation"><p class="section-label">Academic affiliation</p><h2>{E(P['university'])}</h2><p class="lab-name">{E(P['laboratory'])}<br>{E(P['department'])}</p><p>{E(P['location'])}</p><p>Advisor<br>{E(P['advisor'])}</p></aside></div>'''
 
 
 def main():
     posts = load_posts(ROOT / 'posts')
     pages = [
-        ('/', 'About', 'Quoc-Viet Le is a Ph.D. student at Chosun University researching computational fluid dynamics, fiber alignment, and additive manufacturing.', home()),
-        ('/research/', 'Research', 'Research by Quoc-Viet Le on nozzle design, inlet fiber orientation, flow visualization, and polymer composite additive manufacturing.', research()),
-        ('/publications/', 'Publications', 'Journal publications by Quoc-Viet Le in Physics of Fluids and the Journal of Mechanical Science and Technology.', publications()),
-        ('/education/', 'Education', 'Education of Quoc-Viet Le: Ph.D. studies in Mechanical Engineering at Chosun University and a B.S. in Aviation Engineering at Hanoi University of Science and Technology.', education()),
-        ('/experience/', 'Experience', 'Research and industry experience of Quoc-Viet Le, including Chosun University and Hanoi University of Science and Technology.', experience()),
-        ('/blog/', 'Blog', 'Research notes and articles by Quoc-Viet Le.', index_content(posts, header, ARROW)),
-        ('/contact/', 'Contact', 'Find Quoc-Viet Le on LinkedIn, Google Scholar, and ORCID. Heat Transfer Laboratory, Chosun University, Gwangju, South Korea.', contact())
+        ('/', 'About', f'{P["name"]} is a {P["role"]} at {P["university"]} researching computational fluid dynamics, fiber alignment, and additive manufacturing.', home()),
+        ('/research/', 'Research', f'Research by {P["name"]} on nozzle design, inlet fiber orientation, flow visualization, and polymer composite additive manufacturing.', research()),
+        ('/publications/', 'Publications', f'Journal publications by {P["name"]} on flow and fiber alignment in additive manufacturing.', publications()),
+        ('/education/', 'Education', f'Education and academic training of {P["name"]}.', education()),
+        ('/experience/', 'Experience', f'Research and industry experience of {P["name"]}.', experience()),
+        ('/blog/', 'Blog', f'Research notes and articles by {P["name"]}.', index_content(posts, header, ARROW)),
+        ('/contact/', 'Contact', f'Professional profiles and academic affiliation for {P["name"]}.', contact())
     ]
     rendered = {route: page(route, title, description, body) for route, title, description, body in pages}
     for post in posts:
