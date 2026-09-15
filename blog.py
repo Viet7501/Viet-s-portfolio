@@ -81,7 +81,7 @@ def load_posts(directory: Path) -> list[Post]:
 
 def index_content(posts: list[Post], heading, arrow: str) -> str:
     intro = heading('06', 'Blog', 'Research notes, methods, and ideas from my work in engineering.')
-    editor_button = '''<a class="blog-editor-button" href="/admin/" aria-label="Create a new blog post"><span aria-hidden="true">+</span> New post</a>'''
+    editor_button = '''<a class="blog-editor-button" href="/admin/" aria-label="Create a new blog post" title="Create a new blog post" style="position:fixed;right:clamp(18px,3vw,36px);bottom:clamp(18px,3vw,32px);z-index:40;display:inline-flex;align-items:center;gap:9px;padding:13px 18px;background:var(--navy);color:#fff;text-decoration:none;border-radius:999px;box-shadow:0 8px 24px #172f4330;font-weight:600;font-size:.9rem;line-height:1.2;"><span aria-hidden="true" style="font-size:1.25rem;line-height:1;font-weight:400;">+</span> New post</a>'''
     if not posts:
         return intro + '''<section class="blog-empty" aria-label="No published articles"><p class="eyebrow">RESEARCH NOTEBOOK</p><h2>Notes from the research desk.</h2><p>Articles and research notes will appear here.</p></section>''' + editor_button
     rows = []
