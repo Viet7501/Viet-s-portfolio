@@ -36,9 +36,13 @@ collections:
             field: { label: Interest, name: interest, widget: string }
 
           - { label: University, name: university, widget: string }
+          - { label: University URL, name: university_url, widget: string, required: false, hint: "Optional. Makes the university name clickable in the Current affiliation box." }
           - { label: Department, name: department, widget: string }
+          - { label: Department URL, name: department_url, widget: string, required: false, hint: "Optional. Makes the department/field clickable in the Current affiliation box." }
           - { label: Laboratory, name: laboratory, widget: string }
+          - { label: Laboratory URL, name: laboratory_url, widget: string, required: false, hint: "Optional. Makes the laboratory name clickable in the Current affiliation box." }
           - { label: Advisor, name: advisor, widget: string }
+          - { label: Advisor URL, name: advisor_url, widget: string, required: false, hint: "Optional. Makes the advisor name clickable in the Current affiliation box." }
           - { label: Location, name: location, widget: string }
 
           - { label: Email, name: email, widget: string, required: false }
