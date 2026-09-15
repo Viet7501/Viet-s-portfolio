@@ -155,7 +155,8 @@ def contact():
     links = [
         (P['linkedin'], 'LinkedIn', 'Professional profile', 'in', ''),
         (P['scholar'], 'Google Scholar', 'Publications and citations', CAP, ''),
-        (P['orcid'], 'ORCID', P['orcid_id'], 'iD', 'orcid-icon')
+        (P['orcid'], 'ORCID', P['orcid_id'], 'iD', 'orcid-icon'),
+        (P['researchgate'], 'ResearchGate', 'Research profile', 'RG', '')
     ]
     if P['email']:
         links.insert(0, ('mailto:' + P['email'], 'Email', P['email'], '@', ''))
