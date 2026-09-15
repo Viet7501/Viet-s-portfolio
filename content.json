@@ -10,7 +10,12 @@
     "I am a Ph.D. student in Mechanical Engineering at Chosun University, working in the Heat Transfer Laboratory with Professor Dong-Wook Oh. My research combines computational fluid dynamics and flow visualization to understand fiber orientation in printed polymer composites.",
     "I received my B.S. in Aviation Engineering from Hanoi University of Science and Technology in 2023, where I worked on aerospace propulsion, heat transfer, and combustion."
   ],
-  "research_interests": ["Computational fluid dynamics", "Fiber orientation", "Additive manufacturing", "Flow visualization"],
+  "research_interests": [
+    "Computational fluid dynamics",
+    "Fiber orientation",
+    "Additive manufacturing",
+    "Flow visualization"
+  ],
   "university": "Chosun University",
   "department": "Department of Mechanical Engineering",
   "laboratory": "Heat Transfer Laboratory",
@@ -24,11 +29,54 @@
   "researchgate": "https://www.researchgate.net/profile/Quoc-Viet-Le-5",
   "orcid": "https://orcid.org/0009-0007-9250-0203",
   "orcid_id": "0009-0007-9250-0203",
+  "additional_contacts": [],
+  "research_page": {
+    "lead": "Flow, fiber orientation, and the manufacturing of polymer composites.",
+    "intro": "My work examines how nozzle geometry and incoming fiber alignment influence the structure of an extruded composite.",
+    "section_title": "Research directions",
+    "section_meta": "Additive manufacturing",
+    "directions": [
+      {
+        "title": "Controlling fiber alignment through nozzle design",
+        "description": "I investigate adjustable orifice gaps in fused filament fabrication. Numerical flow analysis connects changes in nozzle geometry with shear, extension, and fiber orientation in the extruded filament.",
+        "publication_id": "orifice-gap",
+        "link_label": "Related publication",
+        "tags": [
+          "Nozzle geometry",
+          "CFD simulation",
+          "Extrusion flow"
+        ]
+      },
+      {
+        "title": "Understanding the role of inlet orientation",
+        "description": "I use flow visualization and tensor-based orientation modeling to examine how fibers entering a nozzle affect the alignment downstream. This work explores the transition between M-shaped and Gaussian-like orientation profiles.",
+        "publication_id": "inlet-orientation",
+        "link_label": "Related publication",
+        "tags": [
+          "Fiber orientation",
+          "Flow visualization",
+          "Polymer composites"
+        ]
+      }
+    ],
+    "methods": [
+      "Computational fluid dynamics",
+      "Advani–Tucker orientation tensor modeling",
+      "Experimental flow visualization"
+    ]
+  },
+  "publications_intro": "Journal articles on flow and fiber alignment in additive manufacturing.",
+  "education_intro": "Academic training in mechanical and aviation engineering.",
+  "experience_intro": "Research in fluid mechanics and manufacturing, with a background in aerospace engineering.",
+  "contact_intro": "Professional profiles and academic affiliation.",
   "publications": [
     {
       "id": "inlet-orientation",
       "title": "Transition from M-shaped to Gaussian fiber alignment governed by inlet orientation in fused filament fabrication",
-      "authors": ["Quoc-Viet Le", "Dong-Wook Oh"],
+      "authors": [
+        "Quoc-Viet Le",
+        "Dong-Wook Oh"
+      ],
       "journal": "Physics of Fluids",
       "volume": "38",
       "location": "083123",
@@ -36,12 +84,19 @@
       "date": "20 August 2026",
       "doi": "10.1063/5.0342259",
       "summary": "Experiments and simulations examine how inlet fiber orientation changes the alignment profile after extrusion. The study identifies conditions that shift the profile from M-shaped to Gaussian-like.",
-      "tags": ["Fiber orientation", "Flow visualization", "Fused filament fabrication"]
+      "tags": [
+        "Fiber orientation",
+        "Flow visualization",
+        "Fused filament fabrication"
+      ]
     },
     {
       "id": "orifice-gap",
       "title": "Numerical analysis of flow and fiber orientation inside a varying orifice gap nozzle for fused filament fabrication",
-      "authors": ["Quoc-Viet Le", "Dong-Wook Oh"],
+      "authors": [
+        "Quoc-Viet Le",
+        "Dong-Wook Oh"
+      ],
       "journal": "Journal of Mechanical Science and Technology",
       "volume": "40",
       "location": "4739–4751",
@@ -49,7 +104,11 @@
       "date": "5 June 2026",
       "doi": "10.1007/s12206-026-0548-7",
       "summary": "A numerical study of how an adjustable nozzle gap changes the flow and the alignment of fibers in an extruded filament, connecting nozzle geometry with shear and extension.",
-      "tags": ["Nozzle design", "CFD", "Polymer composites"]
+      "tags": [
+        "Nozzle design",
+        "CFD",
+        "Polymer composites"
+      ]
     }
   ],
   "education": [
@@ -60,7 +119,10 @@
       "institution": "Chosun University",
       "location": "Gwangju, South Korea",
       "dates": "March 2024 — expected May 2028",
-      "details": ["Heat Transfer Laboratory", "Advisor: Professor Dong-Wook Oh"]
+      "details": [
+        "Heat Transfer Laboratory",
+        "Advisor: Professor Dong-Wook Oh"
+      ]
     },
     {
       "period": "2019 — 2023",
@@ -69,7 +131,9 @@
       "institution": "Hanoi University of Science and Technology",
       "location": "Hanoi, Vietnam",
       "dates": "September 2019 — October 2023",
-      "details": ["Undergraduate research in aerospace propulsion, heat transfer, and combustion."]
+      "details": [
+        "Undergraduate research in aerospace propulsion, heat transfer, and combustion."
+      ]
     }
   ],
   "research_experience": [
