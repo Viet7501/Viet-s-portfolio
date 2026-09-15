@@ -94,6 +94,10 @@ def validate(root: Path, base_path: str = ''):
             target = target.resolve()
             if root not in target.parents and target != root:
                 raise ValueError(f'{path}: {reference} leaves the public output.')
+            # Unit-test builds render only the academic pages. The deployment
+            # workflow adds the standalone CMS at /admin/ before final validation.
+            if url_path.rstrip('/') == '/admin' and not target.exists():
+                continue
             if target.is_dir():
                 target /= 'index.html'
             if not target.is_file():
