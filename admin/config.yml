@@ -10,9 +10,156 @@ site_url: https://viet7501.github.io/Viet-s-portfolio/
 display_url: https://viet7501.github.io/Viet-s-portfolio/
 
 collections:
+  - name: site
+    label: Website Content
+    icon: edit_square
+    files:
+      - name: content
+        label: Profile & Pages
+        file: content.json
+        format: json
+        fields:
+          - { label: Full name, name: name, widget: string }
+          - { label: Full role, name: role, widget: string }
+          - { label: Short sidebar role, name: short_role, widget: string }
+          - { label: Home role, name: home_role, widget: string }
+          - { label: Field, name: field, widget: string }
+          - { label: Graduate researcher since, name: researcher_since, widget: string }
+          - { label: Home tagline, name: tagline, widget: text }
+          - label: Biography paragraphs
+            name: biography
+            widget: list
+            field: { label: Paragraph, name: paragraph, widget: text }
+          - label: Research interests
+            name: research_interests
+            widget: list
+            field: { label: Interest, name: interest, widget: string }
+
+          - { label: University, name: university, widget: string }
+          - { label: Department, name: department, widget: string }
+          - { label: Laboratory, name: laboratory, widget: string }
+          - { label: Advisor, name: advisor, widget: string }
+          - { label: Location, name: location, widget: string }
+
+          - { label: Email, name: email, widget: string, required: false }
+          - { label: Profile photo, name: portrait, widget: image, required: false }
+          - { label: Profile photo alt text, name: portrait_alt, widget: string }
+          - { label: LinkedIn URL, name: linkedin, widget: string }
+          - { label: Google Scholar URL, name: scholar, widget: string }
+          - { label: ResearchGate URL, name: researchgate, widget: string }
+          - { label: ORCID URL, name: orcid, widget: string }
+          - { label: ORCID ID, name: orcid_id, widget: string }
+          - label: Additional contacts
+            name: additional_contacts
+            widget: list
+            required: false
+            summary: "{{fields.label}}"
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: URL, name: url, widget: string }
+              - { label: Subtitle, name: subtitle, widget: string, required: false }
+              - { label: Short icon text, name: icon, widget: string, required: false, hint: "Examples: GH, RG, X" }
+
+          - label: Research page
+            name: research_page
+            widget: object
+            fields:
+              - { label: Page introduction, name: lead, widget: text }
+              - { label: Research overview, name: intro, widget: text }
+              - { label: Section title, name: section_title, widget: string }
+              - { label: Section meta label, name: section_meta, widget: string }
+              - label: Research directions
+                name: directions
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Description, name: description, widget: text }
+                  - { label: Related publication ID, name: publication_id, widget: string, required: false, hint: "Use the ID of a publication below, or leave blank for no link." }
+                  - { label: Link label, name: link_label, widget: string, required: false, default: "Related publication" }
+                  - label: Tags
+                    name: tags
+                    widget: list
+                    required: false
+                    field: { label: Tag, name: tag, widget: string }
+              - label: Methods
+                name: methods
+                widget: list
+                field: { label: Method, name: method, widget: string }
+
+          - { label: Publications page introduction, name: publications_intro, widget: text }
+          - label: Publications
+            name: publications
+            widget: list
+            summary: "{{fields.year}} — {{fields.title}}"
+            fields:
+              - { label: Anchor ID, name: id, widget: string, hint: "Lowercase words with hyphens. Keep stable after linking to it." }
+              - { label: Title, name: title, widget: text }
+              - label: Authors
+                name: authors
+                widget: list
+                field: { label: Author, name: author, widget: string }
+              - { label: Journal, name: journal, widget: string }
+              - { label: Volume, name: volume, widget: string }
+              - { label: Pages or article number, name: location, widget: string }
+              - { label: Year, name: year, widget: number, value_type: int }
+              - { label: Display date, name: date, widget: string, hint: "Example: 20 August 2026" }
+              - { label: DOI, name: doi, widget: string, hint: "Example: 10.1063/5.0342259" }
+              - { label: Summary, name: summary, widget: text }
+              - label: Tags
+                name: tags
+                widget: list
+                required: false
+                field: { label: Tag, name: tag, widget: string }
+
+          - { label: Education page introduction, name: education_intro, widget: text }
+          - label: Education
+            name: education
+            widget: list
+            summary: "{{fields.period}} — {{fields.degree}}"
+            fields:
+              - { label: Period, name: period, widget: string }
+              - { label: Status, name: status, widget: string }
+              - { label: Degree, name: degree, widget: string }
+              - { label: Institution, name: institution, widget: string }
+              - { label: Location, name: location, widget: string }
+              - { label: Detailed dates, name: dates, widget: string }
+              - label: Details
+                name: details
+                widget: list
+                required: false
+                field: { label: Detail, name: detail, widget: string }
+
+          - { label: Experience page introduction, name: experience_intro, widget: text }
+          - label: Research experience
+            name: research_experience
+            widget: list
+            summary: "{{fields.period}} — {{fields.title}}"
+            fields:
+              - { label: Period, name: period, widget: string }
+              - { label: Title, name: title, widget: string }
+              - { label: Institution, name: institution, widget: string }
+              - { label: Team or lab, name: team, widget: string, required: false }
+              - { label: Location, name: location, widget: string }
+              - { label: Description, name: description, widget: text }
+          - label: Industry experience
+            name: industry_experience
+            widget: list
+            summary: "{{fields.period}} — {{fields.title}}"
+            fields:
+              - { label: Period, name: period, widget: string }
+              - { label: Title, name: title, widget: string }
+              - { label: Institution, name: institution, widget: string }
+              - { label: Team, name: team, widget: string, required: false }
+              - { label: Location, name: location, widget: string }
+              - { label: Description, name: description, widget: text }
+
+          - { label: Contact page introduction, name: contact_intro, widget: text }
+
   - name: posts
     label: Blog Posts
     label_singular: Blog Post
+    icon: article
     folder: posts
     create: true
     extension: md
