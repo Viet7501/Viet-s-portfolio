@@ -22,7 +22,7 @@
   "advisor": "Professor Dong-Wook Oh",
   "location": "Gwangju, South Korea",
   "email": "",
-  "portrait": "",
+  "portrait": "/assets/images/KakaoTalk_20260915_134044915.jpg",
   "portrait_alt": "Portrait of Quoc-Viet Le",
   "linkedin": "https://www.linkedin.com/in/quoc-viet-le/",
   "scholar": "https://scholar.google.com/citations?user=S5EdqN8AAAAJ&hl=en",
@@ -66,9 +66,6 @@
     ]
   },
   "publications_intro": "Journal articles on flow and fiber alignment in additive manufacturing.",
-  "education_intro": "Academic training in mechanical and aviation engineering.",
-  "experience_intro": "Research in fluid mechanics and manufacturing, with a background in aerospace engineering.",
-  "contact_intro": "Professional profiles and academic affiliation.",
   "publications": [
     {
       "id": "inlet-orientation",
@@ -111,6 +108,7 @@
       ]
     }
   ],
+  "education_intro": "Academic training in mechanical and aviation engineering.",
   "education": [
     {
       "period": "2024 — 2028",
@@ -136,6 +134,7 @@
       ]
     }
   ],
+  "experience_intro": "Research in fluid mechanics and manufacturing, with a background in aerospace engineering.",
   "research_experience": [
     {
       "period": "Feb 2024 — Present",
@@ -167,6 +166,7 @@
       "period": "Oct 2023 — Jan 2024",
       "title": "Procurement Engineer",
       "institution": "Viet Hoang",
+      "team": "",
       "location": "Hanoi, Vietnam",
       "description": "Sourced aviation spare parts and specialized equipment, coordinated suppliers, and supported contract negotiations and delivery."
     },
@@ -174,8 +174,10 @@
       "period": "Aug 2022 — Oct 2022",
       "title": "Aircraft Maintenance Technician",
       "institution": "Aerospace Engineering Services JSC (AESC)",
+      "team": "",
       "location": "Hanoi, Vietnam",
       "description": "Inspected, maintained, and repaired aircraft wheels using technical manuals and manufacturer specifications, with responsibility for maintenance records and component replacement."
     }
-  ]
+  ],
+  "contact_intro": "Professional profiles and academic affiliation."
 }
