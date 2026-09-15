@@ -7,7 +7,7 @@
   "researcher_since": "February 2024",
   "tagline": "I study how flow shapes fiber alignment in additive manufacturing.",
   "biography": [
-    "I am a Ph.D. student in Mechanical Engineering at Chosun University, working in the Heat Transfer Laboratory with Professor Dong-Wook Oh. My research combines computational fluid dynamics and flow visualization to understand fiber orientation in printed polymer composites.",
+    "I am a Ph.D. student in Mechanical Engineering at Chosun University, working in the [Heat Transfer Laboratory](https://sites.google.com/site/chosunheat/home) with Professor [Dong-Wook Oh](https://scholar.google.com/citations?user=FG3_zLUAAAAJ&hl=en). My research combines computational fluid dynamics and flow visualization to understand fiber orientation in printed polymer composites.",
     "I received my B.S. in Aviation Engineering from Hanoi University of Science and Technology, Hanoi, Vietnam in 2023, where I worked on aerospace propulsion, heat transfer, and combustion."
   ],
   "research_interests": [
@@ -17,11 +17,15 @@
     "Flow visualization"
   ],
   "university": "Chosun University",
+  "university_url": "https://www3.chosun.ac.kr/chosun/index.do",
   "department": "Department of Mechanical Engineering",
+  "department_url": "",
   "laboratory": "Heat Transfer Laboratory",
+  "laboratory_url": "https://sites.google.com/site/chosunheat/home",
   "advisor": "Professor Dong-Wook Oh",
+  "advisor_url": "https://scholar.google.com/citations?user=FG3_zLUAAAAJ&hl=en",
   "location": "Gwangju, South Korea",
-  "email": "",
+  "email": "viet.lequoc75@gmail.com",
   "portrait": "/assets/images/KakaoTalk_20260915_134044915.jpg",
   "portrait_alt": "Portrait of Quoc-Viet Le",
   "linkedin": "https://www.linkedin.com/in/quoc-viet-le/",
@@ -165,7 +169,7 @@
     {
       "period": "Oct 2023 — Jan 2024",
       "title": "Procurement Engineer",
-      "institution": "Viet Hoang",
+      "institution": "Viet Hoang Group",
       "team": "",
       "location": "Hanoi, Vietnam",
       "description": "Sourced aviation spare parts and specialized equipment, coordinated suppliers, and supported contract negotiations and delivery."
